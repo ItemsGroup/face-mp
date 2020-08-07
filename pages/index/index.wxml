@@ -1,13 +1,11 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <van-dropdown-menu style="width: 100%;">
+    <van-dropdown-item value="{{ currentCompany }}" options="{{ myCompanys }}" bind:change="changeCompany" />
+  </van-dropdown-menu>
+  <view class="canvas-code-box">
+    <canvas class="canvas-code" canvas-id="companyInQrCode"></canvas>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+  <view class="groupTitle">舜泰广场</view>
+  <view class="title1">门禁二维码</view>
 </view>

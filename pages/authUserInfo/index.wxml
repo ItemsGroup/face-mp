@@ -1,0 +1,21 @@
+<!-- index.wxml -->
+<view class="container">
+  <view class="loginAuthorization">
+    <view class="newloginBox">
+      <view class="loginInfoBox">
+        <view class="loginIconBox">
+          <image src="https://static.techmini.cn/C8DjEY0805170042.png" style="display:none;"></image>
+        </view>
+        <view class="loginNameBox">智慧通行</view>
+      </view>
+      <view class="viewidingLine"></view>
+      <view class="loginTextBox">
+        <view></view>
+        <!-- <view style="margin-bottom: 24rpx;">获得您的手机号</view> -->
+      </view>
+      <button bind:getphonenumber="getPhone" class="loginBtn" lang="zh_CN" open-type="getPhoneNumber">
+        需要您授权手机号
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,5 @@
+<!-- index.wxml -->
+<view class="container">
+  <van-search style="width:100%;" value="{{ searchKeyWord }}" input-align="center" placeholder="请输入搜索关键词" bind:change="searchChange" />
+  <van-cell bind:tap="selectCompany" data-item="{{item}}" style="width:100%;" wx:for="{{companys}}" wx:key="id" wx:for-item="item" center title="{{item.companyName}}" label="{{item.companyAddress}}" value="选择" is-link />
+</view>
