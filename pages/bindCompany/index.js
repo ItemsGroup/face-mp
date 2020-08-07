@@ -2,31 +2,122 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-07 08:56:21
+ * @LastEditTime: 2020-08-07 18:00:04
  * @Description:
  */
 //index.js
+
+import request from "../../utils/request";
+
 //获取应用实例
 const app = getApp();
 
 Page({
   data: {
+    faceImgs: [],
     selectedCompany: {
       id: "",
       companyName: "",
     },
     realName: "",
     idNumber: "",
+    faceImgHash: "",
     errorMsg: {
       company: "",
       realName: "",
       idNumber: "",
+      faceImg: "",
     },
+  },
+  onInputChange(e) {
+    const name = e.target.dataset.name;
+    console.log(name, e.detail);
+    if (name === "realName")
+      this.setData({
+        realName: e.detail,
+      });
+    else if (name === "idNumber")
+      this.setData({
+        idNumber: e.detail,
+      });
+  },
+  bindCompany() {
+    if (this.validAll()) {
+      request
+        .post(app.api.bindCompany, {
+          faceImgHash: this.data.faceImgHash,
+          idCardNumber: this.data.idNumber,
+          locateCompanyId: this.data.selectedCompany.id,
+          name: this.data.realName,
+        })
+        .then((res) => {});
+    }
+  },
+  deleteFaceImg(e) {
+    this.setData({
+      faceImgHash: "",
+      faceImgs: [],
+      "errorMsg.faceImg": "人脸图片不能为空",
+    });
+  },
+  afterImgRead(e) {
+    const file = e.detail.file;
+    console.log("file:", e);
+    const that = this;
+    request
+      .get(app.api.qnUploadToken, {
+        filenames:
+          new Date().getTime() +
+          file.path.substring(file.path.lastIndexOf(".")),
+      })
+      .then((res) => {
+        const token = res.data;
+        wx.uploadFile({
+          url: "https://up-z0.qiniup.com",
+          name: "file",
+          filePath: file.path,
+          header: {
+            "Content-Type": "multipart/form-data",
+          },
+          formData: {
+            token: token[0].token,
+            key: token[0].hashCodeName,
+          },
+          success: function (resp) {
+            const data = JSON.parse(resp.data);
+            that.setData({
+              faceImgHash: data.key,
+              faceImgs: [
+                {
+                  url: app.globalData.qiniuUrlPrefix + data.key,
+                  isImage: true,
+                  deletable: true,
+                },
+              ],
+              "errorMsg.faceImg": "",
+            });
+          },
+          fail: function (resp) {
+            console.error(resp);
+          },
+        });
+      });
   },
   validOnBlur(e) {
     this.validParam(e.target.dataset.name);
   },
+  validAll() {
+    return (
+      this.validParam("company") &&
+      this.validParam("realName") &&
+      this.validParam("faceImg")
+    );
+  },
   validParam(name) {
+    console.log("validParams:", name);
+    console.log("company:", this.data.selectedCompany);
+    console.log("realName:", this.data.realName);
+    console.log("faceImgHash:", this.data.faceImgHash);
     switch (name) {
       case "company":
         if (
@@ -35,8 +126,12 @@ Page({
         ) {
           this.setData({ "errorMsg.companyName": "请选择入驻公司" });
           return false;
+        } else {
+          this.setData({
+            "errorMsg.companyName": "",
+          });
+          return true;
         }
-        return true;
         break;
       case "realName":
         if (app.util.isEmpty(this.data.realName)) {
@@ -45,20 +140,25 @@ Page({
         } else if (this.data.realName.length < 2) {
           this.setData({ "errorMsg.realName": "姓名长度最少为两位" });
           return false;
+        } else {
+          this.setData({ "errorMsg.realName": "" });
+          return true;
         }
-        return true;
         break;
-      case "idNumber":
-        if (app.util.isEmpty(this.data.idNumber)) {
-          this.setData({ "errorMsg.idNumber": "请输入身份证号" });
+      case "faceImg":
+        if (app.util.isEmpty(this.data.faceImgHash)) {
+          this.setData({ "errorMsg.faceImgHash": "请选择人脸识别照片" });
           return false;
+        } else {
+          this.setData({ "errorMsg.faceImgHash": "" });
+          return true;
         }
-        return true;
         break;
         return true;
     }
   },
-  jump2SearchCompanyPage() {
+  jump2SearchCompanyPage(e) {
+    console.error(e.target.dataset.name);
     wx.navigateTo({ url: "/pages/searchCompany/index" });
   },
   onLoad: function () {},

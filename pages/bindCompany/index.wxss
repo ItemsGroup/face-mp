@@ -1,0 +1,7 @@
+.van-cell__title {
+  color: #646566;
+  font-size: 14px;
+  max-width: 6.2em;
+  min-width: 6.2em;
+  margin-right: 12px;
+}

@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:05:23
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-06 12:12:51
+ * @LastEditTime: 2020-08-07 17:16:17
  * @Description:
  */
 import request from "./utils/request";
@@ -21,6 +21,7 @@ App({
     // host: "http://localhost:80",
     clientId: "wechat_mp",
     clientSecret: "wechat_mp_secret",
+    qiniuUrlPrefix: "http://qeh9ngol7.bkt.clouddn.com/",
   },
   api: {
     login: "/blade-auth/oauth/weChatToken",
@@ -29,6 +30,8 @@ App({
       "/device/c/locate-company-employee-apply/getLocateCompanyList",
     companyQuickSearch:
       "/device/c/locate-company-employee-apply/selectLocateCompanyListAll",
+    qnUploadToken: "/qiNiu/clientUploadToken",
+    bindCompany: "/device/c/locate-company-employee-apply/applyCompany",
   },
   util: {
     isEmpty: (val) => val == null || !(Object.keys(val) || val).length,

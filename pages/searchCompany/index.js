@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:39:00
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-06 14:35:52
+ * @LastEditTime: 2020-08-07 17:31:06
  * @Description:
  */
 //index.js
@@ -23,7 +23,7 @@ Page({
       selectedCompany: item,
     });
     lastPage.setData({
-      ["errorMsg.company"]: errorMsg,
+      "errorMsg.company": "",
     });
     wx.navigateBack({
       delta: 1, //返回的页面数，如果 delta 大于现有页面数，则返回到首页,

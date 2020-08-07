@@ -21,7 +21,8 @@
     "van-icon": "static/vant/icon/index",
     "van-search": "static/vant/search/index",
     "van-cell": "static/vant/cell/index",
-    "van-cell-group": "static/vant/cell-group/index"
+    "van-cell-group": "static/vant/cell-group/index",
+    "van-uploader": "static/vant/uploader/index"
   },
   "tabBar": {
     "color": "#CCCCCC",
