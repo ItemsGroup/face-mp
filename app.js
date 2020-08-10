@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:05:23
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-07 17:16:17
+ * @LastEditTime: 2020-08-10 18:03:40
  * @Description:
  */
 import request from "./utils/request";
@@ -22,6 +22,7 @@ App({
     clientId: "wechat_mp",
     clientSecret: "wechat_mp_secret",
     qiniuUrlPrefix: "http://qeh9ngol7.bkt.clouddn.com/",
+    myCompanys: [],
   },
   api: {
     login: "/blade-auth/oauth/weChatToken",
@@ -32,6 +33,10 @@ App({
       "/device/c/locate-company-employee-apply/selectLocateCompanyListAll",
     qnUploadToken: "/qiNiu/clientUploadToken",
     bindCompany: "/device/c/locate-company-employee-apply/applyCompany",
+    listAllMyCompany:
+      "/device/c/locate-company-employee-apply/getLocateCompanyListAll",
+    calcCompanyClaim:
+      "/device/c/locate-company-employee-apply/calcCompanyClaim",
   },
   util: {
     isEmpty: (val) => val == null || !(Object.keys(val) || val).length,
@@ -50,13 +55,23 @@ App({
     },
   },
   listMyCompanys() {
-    return request.get(this.api.listMyCompany).then((res) => {
-      console.error(res);
-      if (this.util.isEmpty(res.data)) {
-        console.error("公司列表为空,跳转绑定公司");
-        wx.navigateTo({ url: "/pages/bindCompany/index" });
-        // wx.navigateTo({ url: "/pages/searchCompany/index" });
-      }
+    return new Promise((resolve, reject) => {
+      request.get(this.api.listAllMyCompany).then((res) => {
+        if (this.util.isEmpty(res.data)) {
+          console.error("公司列表为空,跳转绑定公司");
+          wx.navigateTo({ url: "/pages/bindCompany/index?status=add" });
+          // wx.navigateTo({ url: "/pages/searchCompany/index" });
+        } else {
+          this.globalData.myCompanys = res.data.map((item) => {
+            item.value = item.id;
+            item.text = item.companyName;
+            item.faceImgUrl = this.globalData.qiniuUrlPrefix + item.faceImgHash;
+            return item;
+          });
+          console.log("this.globalData.myCompanys", this.globalData.myCompanys);
+          resolve(res);
+        }
+      });
     });
   },
   login() {
@@ -87,8 +102,12 @@ App({
                     },
                   });
                 } else {
-                  this.listMyCompanys().then((res) => {});
-                  resolve(res);
+                  this.listMyCompanys().then((companysRes) => {
+                    resolve({
+                      login: res,
+                      companysRes: companysRes,
+                    });
+                  });
                 }
               })
               .catch((err) => {

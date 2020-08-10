@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-07 18:00:04
+ * @LastEditTime: 2020-08-10 18:44:57
  * @Description:
  */
 //index.js
@@ -28,6 +28,8 @@ Page({
       idNumber: "",
       faceImg: "",
     },
+    status: "add",
+    modifyData: {},
   },
   onInputChange(e) {
     const name = e.target.dataset.name;
@@ -50,7 +52,10 @@ Page({
           locateCompanyId: this.data.selectedCompany.id,
           name: this.data.realName,
         })
-        .then((res) => {});
+        .then((res) => {
+          if (res.code === 200) {
+          }
+        });
     }
   },
   deleteFaceImg(e) {
@@ -158,10 +163,38 @@ Page({
     }
   },
   jump2SearchCompanyPage(e) {
-    console.error(e.target.dataset.name);
-    wx.navigateTo({ url: "/pages/searchCompany/index" });
+    if (this.data.status === "add") {
+      wx.navigateTo({ url: "/pages/searchCompany/index" });
+    }
   },
-  onLoad: function () {},
+  onLoad: function (options) {
+    if (!app.util.isEmpty(options.status)) {
+      this.setData({
+        status: options.status,
+      });
+    }
+    if (!app.util.isEmpty(options.comData)) {
+      let data = JSON.parse(options.comData);
+      console.log(data);
+      this.setData({
+        modifyData: data,
+        selectedCompany: {
+          companyName: data.companyName,
+          id: data.id,
+        },
+        realName: data.name,
+        idNumber: data.idCardNumber,
+        faceImgHash: data.faceImgHash,
+        faceImgs: [
+          {
+            url: data.faceImgUrl,
+            isImage: true,
+            deletable: true,
+          },
+        ],
+      });
+    }
+  },
   onShow: function () {
     console.error(this.data.selectedCompany);
   },

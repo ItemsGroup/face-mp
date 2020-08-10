@@ -1,8 +1,13 @@
 <!-- index.wxml -->
-<view class="container">
-  <van-dropdown-menu style="width: 100%;">
-    <van-dropdown-item value="{{ currentCompany }}" options="{{ myCompanys }}" bind:change="changeCompany" />
-  </van-dropdown-menu>
+<view class="container" style="background-image:url(../../static/img/open_bg.png)">
+  <!-- <van-dropdown-menu style="width: 100%;">
+    <van-dropdown-item value="{{ currentCompany.id }}" options="{{ myCompanys }}" bind:change="onChangeCompany" />
+  </van-dropdown-menu> -->
+  <view class="companyTitle" bind:tap="onTapCompany">
+    {{currentCompany.companyName}}
+    <van-icon name="arrow-down" size="35rpx" />
+  </view>
+  <view class="nameBox">帅哥,你好</view>
   <view class="canvas-code-box">
     <canvas class="canvas-code" canvas-id="companyInQrCode"></canvas>
   </view>

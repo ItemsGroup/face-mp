@@ -1,0 +1,59 @@
+<!-- index.wxml -->
+<view class="container">
+  <view class="companyCard" wx:for="{{myCompanys}}" wx:for-item="item" wx:key="index">
+    <view class="companyCardBox">
+      <van-row gutter="5">
+        <van-col span="6">
+          <image src="{{item.faceImgUrl}}" class="avatar" />
+        </van-col>
+        <van-col span="18" style="padding-top: 10rpx;">
+          <van-row>
+            <van-col span="17">
+              <view class="companyNameBox">{{item.companyName}}</view>
+            </van-col>
+            <val-col span="5" offset="2">
+              <view class="companyNameBox" style="text-align: right;">待审核</view>
+            </val-col>
+          </van-row>
+          <van-row>
+            <van-col span="11">
+              <van-row>
+                <view class="nameAndPhoneBox">姓名:{{item.name}}</view>
+              </van-row>
+              <van-row>
+                <view class="nameAndPhoneBox">电话:{{item.phone}}</view>
+              </van-row>
+            </van-col>
+            <van-col span="11" offset="2">
+              <van-row wx:if="{{item.claimStatus==='claimWaiting'}}">
+                <van-col span="10">
+                  <van-button type="primary" size="mini" data-id="{{item.id}}" data-btn="claimSuccess">
+                    认领
+                  </van-button>
+                </van-col>
+                <van-col span="10" offset="4">
+                  <van-button type="primary" size="mini" data-id="{{item.id}}" data-btn="claimReject">
+                    拒绝
+                  </van-button>
+                </van-col>
+              </van-row>
+              <van-row wx:else>
+                <van-col span="10" offset="14">
+                  <van-button type="primary" size="mini" data-id="{{item.id}}" bind:tap="modifyCompany">
+                    编辑
+                  </van-button>
+                </van-col>
+              </van-row>
+            </van-col>
+          </van-row>
+        </van-col>
+      </van-row>
+      <van-row>
+        <view class="addrBox">公司地址:{{item.companyAddress}}</view>
+      </van-row>
+    </view>
+  </view>
+  <van-button bind:tap="bindCompany" type="primary" icon="plus" block style="width: 80%;position: flexd;left: 0;bottom: 0;margin:50rpx auto;">
+    加入公司
+  </van-button>
+</view>

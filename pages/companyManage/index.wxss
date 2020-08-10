@@ -1,0 +1,40 @@
+.companyCard {
+  /* height: 260rpx; */
+  width: 95%;
+  border-radius: 16rpx;
+  margin-top: 10rpx;
+  background-color: #fff;
+}
+.companyCardBox {
+  margin: 15rpx 25rpx;
+}
+.avatar {
+  width: 100%;
+  height: 150rpx;
+}
+.addrBox {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: rgba(181, 187, 188, 1);
+  line-height: 35rpx;
+}
+.nameAndPhoneBox {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: rgba(181, 187, 188, 1);
+  line-height: 35rpx;
+}
+.companyNameBox {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  line-height: 60rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.box1 {
+}

@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:34:54
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-06 10:10:41
+ * @LastEditTime: 2020-08-10 10:03:37
  * @Description:
  */
 //index.js
@@ -23,22 +23,28 @@ Page({
         value: 2,
       },
     ],
-    currentCompany: 1,
+    currentCompany: {},
   },
   onCloseAuthMenu() {},
   onAuthPhone(e) {
     console.log(e.detail);
   },
-  changeCompany: function ({ detail }) {
-    console.log("选择公司:", detail);
-    this.genCompanyQrCode("aaaaaaaaaa" + detail);
+  onTapCompany(e) {
+    wx.navigateTo({ url: "/pages/companyManage/index?status=chose" });
+  },
+  onChangeCompany: function ({ detail }) {
+    this.choseCom(detail);
+  },
+  choseCom(company) {
+    console.log("choseCom", company);
+    this.genCompanyQrCode("aaaaaaaaaa" + company.id);
   },
   genCompanyQrCode: function (company) {
     console.log("生成小程序二维码:", company);
     new QRCode("companyInQrCode", {
       text: "http://www.tongxingschool.com" + company,
-      width: 280,
-      height: 280,
+      width: 200,
+      height: 200,
       padding: 5, // 生成二维码四周自动留边宽度，不传入默认为0
       correctLevel: QRCode.CorrectLevel.L, // 二维码可辨识度
       callback: (res) => {
@@ -49,7 +55,14 @@ Page({
   },
   onLoad: function () {
     app.login().then((res) => {
-      // this.genCompanyQrCode("a");
+      const myComs = app.globalData.myCompanys;
+      if (!app.util.isEmpty(myComs)) {
+        this.setData({
+          myCompanys: myComs,
+          currentCompany: myComs[0],
+        });
+        this.choseCom(this.data.currentCompany);
+      }
     });
   },
 });

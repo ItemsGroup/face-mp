@@ -4,7 +4,8 @@
     "pages/my/index",
     "pages/authUserInfo/index",
     "pages/bindCompany/index",
-    "pages/searchCompany/index"
+    "pages/searchCompany/index",
+    "pages/companyManage/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,7 +23,9 @@
     "van-search": "static/vant/search/index",
     "van-cell": "static/vant/cell/index",
     "van-cell-group": "static/vant/cell-group/index",
-    "van-uploader": "static/vant/uploader/index"
+    "van-uploader": "static/vant/uploader/index",
+    "van-row": "static/vant/row/index",
+    "van-col": "static/vant/col/index"
   },
   "tabBar": {
     "color": "#CCCCCC",
