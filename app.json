@@ -5,7 +5,8 @@
     "pages/authUserInfo/index",
     "pages/bindCompany/index",
     "pages/searchCompany/index",
-    "pages/companyManage/index"
+    "pages/companyManage/index",
+    "pages/myInfoForm/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -25,23 +26,25 @@
     "van-cell-group": "static/vant/cell-group/index",
     "van-uploader": "static/vant/uploader/index",
     "van-row": "static/vant/row/index",
-    "van-col": "static/vant/col/index"
+    "van-col": "static/vant/col/index",
+    "van-notice-bar": "static/vant/notice-bar/index",
+    "van-nav-bar": "static/vant/nav-bar/index"
   },
   "tabBar": {
     "color": "#CCCCCC",
-    "selectedColor": "#3190F2",
+    "selectedColor": "#249ED6",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "开门",
-        "iconPath": "static/home.png",
-        "selectedIconPath": "static/img/on_home1.png"
+        "iconPath": "static/img/openDoor_default.png",
+        "selectedIconPath": "static/img/openDoor_active.png"
       },
       {
         "pagePath": "pages/my/index",
         "text": "我的",
-        "iconPath": "static/home.png",
-        "selectedIconPath": "static/img/on_home1.png"
+        "iconPath": "static/img/personalCenter_default.png",
+        "selectedIconPath": "static/img/personalCenter_active.png"
       }
     ]
   }

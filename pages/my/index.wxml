@@ -1,50 +1,30 @@
-<view class="container1">
-  <view class="userinfo">
-    <image class="userinfo-avatar" src="https://static.techmini.cn/I2awPX0805170059.png" background-size="cover"></image>
-    <text class="userinfo-nickname">userInfo.nickName</text>
-    <!-- <image src="https://static.techmini.cn/xwYYpT0721192707.png" class="account-bg"></image> -->
-  </view>
-  <view class="separate"></view>
-  <view class="order" catchtap="toOrder">
-    <text class="myorder-text">我的订单</text>
-    <text class="myorderlook-text">查看全部订单</text>
-    <image class="next-image" src="https://static.techmini.cn/iOM35D0721192342.png"></image>
-  </view>
-  <view class="line"></view>
-  <!-- <view class="navs">
-    <block wx:for-items="{{orderItems}}" wx:key="name">
-      <view class="nav-item" catchtap="toOrder" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
-        <image src="{{item.imageurl}}" class="nav-image" />
-        <text>{{item.name}}</text>
+<view class="container">
+  <view class="userInfoCard">
+    <view class="userInfoCardInner">
+      <image class="userAvatar" src="{{com.faceImgUrl}}" />
+      <view class="userInfoBox">
+        <view class="userNameBox">
+          <view class="userNameText">{{com.name}}</view>
+          <!-- <view wx:if="{{com.occupationStatus==='on'||com.occupationStatus==='off'}}" class="userTag">
+            {{(com.occupationStatus==='on')?'在职':'离职'}}
+          </view> -->
+          <view class="userTag">
+            {{(com.occupationStatus==='on')?'在职':com.applyStatus==='applying'?'审核中':'离职'}}
+          </view>
+        </view>
+        <view class="companyNameText">{{com.companyName}}</view>
       </view>
-    </block>
-  </view> -->
-  <view class="separate"></view>
-  <view class="person-list">
-    <view class="list-item">
-      <image class="item-image" src="https://static.techmini.cn/I2awPX0805170059.png"></image>
-      <text class="item-text">我的收藏</text>
-    </view>
-    <view class="person-line"></view>
-    <view class="list-item">
-      <image class="item-image" src="https://static.techmini.cn/I2awPX0805170059.png"></image>
-      <text class="item-text">收货地址</text>
-    </view>
-    <view class="person-line"></view>
-    <view class="list-item">
-      <image class="item-image" src="https://static.techmini.cn/I2awPX0805170059.png"></image>
-      <text class="item-text">售后记录</text>
-    </view>
-    <view class="person-line"></view>
-    <view class="list-item">
-      <image class="item-image" src="https://static.techmini.cn/I2awPX0805170059.png"></image>
-      <text class="item-text">我的评价</text>
-    </view>
-    <view class="person-line"></view>
-    <view class="list-item">
-      <image class="item-image" src="https://static.techmini.cn/I2awPX0805170059.png"></image>
-      <text class="item-text">推广邀请</text>
     </view>
   </view>
-  <view class="separate"></view>
+  <view class="rowItem" bind:tap="jump2MyCompany">
+    <image class="rowIcon" src="https://static.techmini.cn/com0812144611.png" />
+    <view class="rowName">我的公司</view>
+    <image class="rowArrow" src='https://static.techmini.cn/iOM35D0721192342.png' />
+  </view>
+  <view class="rowItem" bind:tap="jump2MyInfo">
+    <image class="rowIcon" src="https://static.techmini.cn/phone0812144624.png" />
+    <view class="rowName">手机号</view>
+    <image class="rowArrow" src='https://static.techmini.cn/iOM35D0721192342.png' />
+    <view class="phoneNumberBox">{{phone}}</view>
+  </view>
 </view>

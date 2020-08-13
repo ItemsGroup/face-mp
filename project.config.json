@@ -12,7 +12,7 @@
 		"minified": true,
 		"newFeature": false,
 		"coverView": true,
-		"nodeModules": true,
+		"nodeModules": false,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
@@ -31,8 +31,8 @@
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.5",
-	"appid": "wx66b1d0df859e8bcf",
+	"libVersion": "2.6.6",
+	"appid": "wxddeb535fc2e803e5",
 	"projectname": "face-mp",
 	"debugOptions": {
 		"hidedInDevtools": []

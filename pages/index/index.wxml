@@ -1,16 +1,16 @@
 <!-- index.wxml -->
-<view class="container" style="background-image:url(../../static/img/open_bg.png)">
-  <!-- <van-dropdown-menu style="width: 100%;">
-    <van-dropdown-item value="{{ currentCompany.id }}" options="{{ myCompanys }}" bind:change="onChangeCompany" />
-  </van-dropdown-menu> -->
-  <view class="companyTitle" bind:tap="onTapCompany">
+<view class="container" style="background-image:url(https://static.techmini.cn/open_bg0812163116.png);background-repeat:no-repeat;background-size:100%;">
+  <!-- <view class="companyTitle" bind:tap="onTapCompany">
     {{currentCompany.companyName}}
     <van-icon name="arrow-down" size="35rpx" />
   </view>
-  <view class="nameBox">帅哥,你好</view>
-  <view class="canvas-code-box">
-    <canvas class="canvas-code" canvas-id="companyInQrCode"></canvas>
+  <view class="nameBox">帅哥,你好</view> -->
+  <view class="companyTitle" bind:tap="onTapCompany">{{currentCompany.name}} 你好</view>
+  <view class="canvas-code-box" style="background-image:url(https://static.techmini.cn/qrCodeBg0813102544.png);background-repeat:no-repeat;background-size:100%;">
+    <canvas wx:if="{{showQrCode}}" class="canvas-code" canvas-id="companyInQrCode"></canvas>
+    <view wx:else class="noComTip">管理员审核中,请耐心等待</view>
   </view>
-  <view class="groupTitle">舜泰广场</view>
+  <!-- <view class="groupTitle">舜泰广场</view> -->
   <view class="title1">门禁二维码</view>
+  <image src="../../static/img/banner1.png" class="indexBottomBanner" />
 </view>

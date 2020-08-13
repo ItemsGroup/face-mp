@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 16:52:55
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-05 16:54:28
+ * @LastEditTime: 2020-08-12 18:11:47
  * @Description:
  */
 var app = getApp();
@@ -31,7 +31,7 @@ const request = (url, options, tApp) => {
         "Blade-Auth": token,
       },
       success(res) {
-        console.log("request==>", url);
+        console.log("request==>", url, options.data);
         //获取状态码
         const status = res.data.code || res.statusCode;
         const message = res.data.msg || res.data.errMsg || "未知错误";
@@ -40,6 +40,7 @@ const request = (url, options, tApp) => {
           resolve(res.data);
         } else {
           wx.showToast({
+            icon: "none",
             title: message, //提示的内容,
             duration: 2000, //延迟时间,
             success: (res) => {},

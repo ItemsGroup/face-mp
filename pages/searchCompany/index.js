@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:39:00
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-07 17:31:06
+ * @LastEditTime: 2020-08-12 18:47:15
  * @Description:
  */
 //index.js
@@ -14,6 +14,11 @@ Page({
   data: {
     searchKeyWord: "",
     companys: [],
+  },
+  onClickBack() {
+    wx.navigateBack({
+      delta: 1, //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
+    });
   },
   selectCompany(e) {
     let item = e.target.dataset.item;
@@ -30,7 +35,6 @@ Page({
     });
   },
   searchChange(e) {
-    console.log(e.detail);
     request
       .get(app.api.companyQuickSearch, {
         current: 1,

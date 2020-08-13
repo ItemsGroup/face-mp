@@ -1,5 +1,6 @@
 .loginAuthorization {
   padding: 200rpx 32rpx;
+  width: 100%;
 }
 .newloginBox {
   width: 100%;
@@ -42,33 +43,29 @@
   margin-bottom: 62rpx;
 }
 .loginTextBox {
-  float: left;
   width: 100%;
-  margin-bottom: 69rpx;
-}
-.loginTextBox p {
-  float: left;
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #2c2c2c;
-  margin-bottom: 46rpx;
-  line-height: 40rpx;
-  margin-left: 41rpx;
-  margin-right: 33rpx;
-}
-.loginTextBox span {
-  float: left;
+  text-align: center;
+  line-height: 100rpx;
   font-size: 30rpx;
-  color: #666666;
-  line-height: 30rpx;
-  margin-left: 41rpx;
+  margin-bottom: 20rpx;
 }
 .loginBtn {
-  width: 100%;
+  width: 80%;
   height: 100rpx;
   background: #06c261;
   border-radius: 10rpx;
   font-size: 36rpx;
   line-height: 100rpx;
   color: #ffffff;
+}
+.logo {
+  width: 150rpx;
+  height: 150rpx;
+}
+.loginDescBox {
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 80rpx;
+}
+.viewidingLine {
 }

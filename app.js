@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:05:23
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-10 18:03:40
+ * @LastEditTime: 2020-08-13 10:22:25
  * @Description:
  */
 import request from "./utils/request";
@@ -33,13 +33,18 @@ App({
       "/device/c/locate-company-employee-apply/selectLocateCompanyListAll",
     qnUploadToken: "/qiNiu/clientUploadToken",
     bindCompany: "/device/c/locate-company-employee-apply/applyCompany",
+    updateMyComInfo: "/device/c/mine/updateMineInfo",
     listAllMyCompany:
       "/device/c/locate-company-employee-apply/getLocateCompanyListAll",
     calcCompanyClaim:
       "/device/c/locate-company-employee-apply/calcCompanyClaim",
+    getQrCodeStr: "/device/c/locate-company-employee-apply/getOpenQr",
+    locatCompanyDetail:
+      "/device/c/locate-company-employee-apply/getLocateCompanyDetail",
   },
   util: {
-    isEmpty: (val) => val == null || !(Object.keys(val) || val).length,
+    isEmpty: (val) =>
+      val == null || val == undefined || !(Object.keys(val) || val).length,
     objectToQueryString: (queryParameters) => {
       return queryParameters
         ? Object.entries(queryParameters).reduce(
@@ -53,13 +58,40 @@ App({
           )
         : "";
     },
+    getURLParameters: (url) =>
+      (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
+        (a, v) => (
+          (a[v.slice(0, v.indexOf("="))] = v.slice(v.indexOf("=") + 1)), a
+        ),
+        {}
+      ),
   },
-  listMyCompanys() {
+  getDefaultCom() {
+    const coms = this.globalData.myCompanys;
+    let defaultCom = coms.find((item) => {
+      return item.isDefault === 1;
+    });
+    if (this.util.isEmpty(defaultCom)) defaultCom = coms[0];
+    return defaultCom;
+  },
+  listMyCompanys(authBackParams) {
     return new Promise((resolve, reject) => {
       request.get(this.api.listAllMyCompany).then((res) => {
-        if (this.util.isEmpty(res.data)) {
-          console.error("公司列表为空,跳转绑定公司");
-          wx.navigateTo({ url: "/pages/bindCompany/index?status=add" });
+        const pages = getCurrentPages();
+        if (
+          this.util.isEmpty(res.data) &&
+          pages[pages.length - 1].route !== "pages/bindCompany/index"
+        ) {
+          if (this.util.isEmpty(authBackParams))
+            wx.navigateTo({ url: "/pages/bindCompany/index?status=add" });
+          else
+            wx.navigateTo({
+              url:
+                "/pages/bindCompany/index?authBackParams=" +
+                (typeof authBackParams === "string"
+                  ? authBackParams
+                  : JSON.stringify(authBackParams)),
+            });
           // wx.navigateTo({ url: "/pages/searchCompany/index" });
         } else {
           this.globalData.myCompanys = res.data.map((item) => {
@@ -68,13 +100,12 @@ App({
             item.faceImgUrl = this.globalData.qiniuUrlPrefix + item.faceImgHash;
             return item;
           });
-          console.log("this.globalData.myCompanys", this.globalData.myCompanys);
           resolve(res);
         }
       });
     });
   },
-  login() {
+  login(authBackParams) {
     return new Promise((resolve, reject) => {
       // 登录
       wx.login({
@@ -83,26 +114,29 @@ App({
             request
               .post(this.api.login, resp, this)
               .then((res) => {
-                console.log("登录成功", res);
                 this.globalData.userInfo = res;
                 this.globalData.tenantId = res.tenant_id;
                 this.globalData.token = res.access_token;
                 this.globalData.refreshToken = res.refresh_token;
                 this.globalData.locateCompanyId = res.locateCompanyId;
                 this.globalData.openId = res.openId;
-                console.log(this.globalData);
                 if (this.util.isEmpty(this.globalData.userInfo.phone)) {
+                  const url =
+                    "/pages/authUserInfo/index?authBackParams=" +
+                    (this.util.isEmpty(authBackParams)
+                      ? ""
+                      : typeof authBackParams === "string"
+                      ? authBackParams
+                      : JSON.stringify(authBackParams));
                   wx.navigateTo({
-                    url: "/pages/authUserInfo/index",
-                    success: function (res) {
-                      console.log(res);
-                    },
+                    url: url,
+                    success: function (res) {},
                     fail: function (err) {
                       console.error(err);
                     },
                   });
                 } else {
-                  this.listMyCompanys().then((companysRes) => {
+                  this.listMyCompanys(authBackParams).then((companysRes) => {
                     resolve({
                       login: res,
                       companysRes: companysRes,

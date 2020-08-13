@@ -1,20 +1,22 @@
 <!-- index.wxml -->
 <view class="container">
+  <van-nav-bar style="width:100%;" left-text="{{showBack?'返回':''}}" title="授权" left-arrow="{{showBack}}" bind:click-left="onClickBack" />
   <view class="loginAuthorization">
     <view class="newloginBox">
       <view class="loginInfoBox">
         <view class="loginIconBox">
-          <image src="https://static.techmini.cn/C8DjEY0805170042.png" style="display:none;"></image>
+          <image class="logo" src="https://static.techmini.cn/zhtx_logo10812185440.png"></image>
         </view>
         <view class="loginNameBox">智慧通行</view>
+        <!-- <view class="loginDescBox">需要您授权手机号</view> -->
       </view>
       <view class="viewidingLine"></view>
       <view class="loginTextBox">
         <view></view>
-        <!-- <view style="margin-bottom: 24rpx;">获得您的手机号</view> -->
+        <view style="margin-bottom: 24rpx;">需要您授权手机号</view>
       </view>
       <button bind:getphonenumber="getPhone" class="loginBtn" lang="zh_CN" open-type="getPhoneNumber">
-        需要您授权手机号
+        确认授权
       </button>
     </view>
   </view>

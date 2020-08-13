@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-10 18:44:57
+ * @LastEditTime: 2020-08-13 10:19:49
  * @Description:
  */
 //index.js
@@ -30,32 +30,47 @@ Page({
     },
     status: "add",
     modifyData: {},
+    employeeId: "",
+    authBackParams: "",
   },
   onInputChange(e) {
     const name = e.target.dataset.name;
-    console.log(name, e.detail);
-    if (name === "realName")
-      this.setData({
-        realName: e.detail,
-      });
-    else if (name === "idNumber")
-      this.setData({
-        idNumber: e.detail,
-      });
+    const val = e.detail;
+    this.setData({
+      [name]: val,
+    });
+  },
+  onClickBack() {
+    wx.navigateBack({
+      delta: 1, //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
+    });
   },
   bindCompany() {
     if (this.validAll()) {
-      request
-        .post(app.api.bindCompany, {
-          faceImgHash: this.data.faceImgHash,
-          idCardNumber: this.data.idNumber,
-          locateCompanyId: this.data.selectedCompany.id,
-          name: this.data.realName,
-        })
-        .then((res) => {
-          if (res.code === 200) {
-          }
+      const subData = {
+        faceImgHash: this.data.faceImgHash,
+        idCardNumber: this.data.idNumber,
+        locateCompanyId: this.data.selectedCompany.id,
+        name: this.data.realName,
+        id: this.data.employeeId,
+      };
+      const requestUrl =
+        this.data.status === "add" || this.data.status === "qrAdd"
+          ? app.api.bindCompany
+          : app.api.updateMyComInfo;
+      request.post(requestUrl, subData).then((res) => {
+        app.listMyCompanys().then((res) => {
+          const pages = getCurrentPages();
+          if (
+            pages.length > 1 &&
+            pages[pages.length - 2].route !== "pages/authUserInfo/index"
+          )
+            wx.navigateBack({
+              delta: 1, //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
+            });
+          else wx.switchTab({ url: "/pages/index/index" });
         });
+      });
     }
   },
   deleteFaceImg(e) {
@@ -67,7 +82,6 @@ Page({
   },
   afterImgRead(e) {
     const file = e.detail.file;
-    console.log("file:", e);
     const that = this;
     request
       .get(app.api.qnUploadToken, {
@@ -119,10 +133,6 @@ Page({
     );
   },
   validParam(name) {
-    console.log("validParams:", name);
-    console.log("company:", this.data.selectedCompany);
-    console.log("realName:", this.data.realName);
-    console.log("faceImgHash:", this.data.faceImgHash);
     switch (name) {
       case "company":
         if (
@@ -167,35 +177,70 @@ Page({
       wx.navigateTo({ url: "/pages/searchCompany/index" });
     }
   },
-  onLoad: function (options) {
-    if (!app.util.isEmpty(options.status)) {
-      this.setData({
-        status: options.status,
-      });
-    }
-    if (!app.util.isEmpty(options.comData)) {
-      let data = JSON.parse(options.comData);
-      console.log(data);
-      this.setData({
-        modifyData: data,
-        selectedCompany: {
-          companyName: data.companyName,
-          id: data.id,
-        },
-        realName: data.name,
-        idNumber: data.idCardNumber,
-        faceImgHash: data.faceImgHash,
-        faceImgs: [
-          {
-            url: data.faceImgUrl,
-            isImage: true,
-            deletable: true,
+  getQrCom(locateCompanyId) {
+    request
+      .get(app.api.locatCompanyDetail, { id: locateCompanyId }, app)
+      .then((res) => {
+        this.setData({
+          selectedCompany: {
+            companyName: res.data.companyName,
+            id: locateCompanyId,
           },
-        ],
+        });
       });
-    }
   },
-  onShow: function () {
-    console.error(this.data.selectedCompany);
+  onLoad: function (options) {
+    if (
+      app.util.isEmpty(options.q) &&
+      app.util.isEmpty(this.data.authBackParams) &&
+      app.util.isEmpty(options.authBackParams)
+    ) {
+      if (!app.util.isEmpty(options.status)) {
+        this.setData({
+          status: options.status,
+        });
+      }
+      if (!app.util.isEmpty(options.comData)) {
+        let data = JSON.parse(options.comData);
+        console.log(data);
+        this.setData({
+          modifyData: data,
+          employeeId: data.employeeId,
+          selectedCompany: {
+            companyName: data.companyName,
+            id: data.id,
+          },
+          realName: data.name,
+          idNumber: data.idCardNumber,
+          faceImgHash: data.faceImgHash,
+          faceImgs: [
+            {
+              url: data.faceImgUrl,
+              isImage: true,
+              deletable: true,
+            },
+          ],
+        });
+      }
+    } else {
+      this.setData({
+        status: "qrAdd",
+      });
+      if (!app.util.isEmpty(options.q)) {
+        let q = decodeURIComponent(options.q);
+        let urlParams = app.util.getURLParameters(q);
+        let locateCompanyId = urlParams.locateCompanyId;
+        app.login(urlParams).then((loginRes) => {
+          this.getQrCom(locateCompanyId);
+        });
+      } else {
+        let authBackParams = app.util.isEmpty(this.data.authBackParams)
+          ? options.authBackParams
+          : this.data.authBackParams;
+        let urlParams = JSON.parse(authBackParams);
+        let locateCompanyId = urlParams.locateCompanyId;
+        this.getQrCom(locateCompanyId);
+      }
+    }
   },
 });

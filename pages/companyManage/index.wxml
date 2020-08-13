@@ -1,5 +1,6 @@
 <!-- index.wxml -->
 <view class="container">
+  <van-nav-bar style="width:100%;" left-text="返回" title="绑定公司" left-arrow bind:click-left="onClickBack" />
   <view class="companyCard" wx:for="{{myCompanys}}" wx:for-item="item" wx:key="index">
     <view class="companyCardBox">
       <van-row gutter="5">

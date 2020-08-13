@@ -18,6 +18,11 @@ Page({
         "/pages/bindCompany/index?status=modify&comData=" + JSON.stringify(com),
     });
   },
+  onClickBack() {
+    wx.navigateBack({
+      delta: 1, //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
+    });
+  },
   bindCompany() {
     wx.navigateTo({ url: "/pages/bindCompany/index?status=add" });
   },
@@ -35,7 +40,15 @@ Page({
       });
     });
   },
+  onPullDownRefresh: function () {
+    app.listMyCompanys().then((res) => {
+      this.setData({
+        myCompanys: app.globalData.myCompanys,
+      });
+    });
+  },
   onLoad: function (options) {
+    wx.stopPullDownRefresh();
     if (!app.util.isEmpty(options.status)) {
       this.setData({
         status: options.status,
