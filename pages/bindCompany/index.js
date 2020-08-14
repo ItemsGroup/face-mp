@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 15:08:12
+ * @LastEditTime: 2020-08-14 16:55:57
  * @Description:
  */
 //index.js
@@ -172,11 +172,32 @@ Page({
   },
   validParam(name) {
     switch (name) {
+      case "idNumber":
+        if (app.util.isEmpty(this.data.idNumber)) {
+          break;
+        } else if (!app.util.isIDNumber(this.data.idNumber)) {
+          wx.showToast({
+            title: "请输入正确的身份证号", //提示的内容,
+            icon: "none", //图标,
+            duration: 2000, //延迟时间,
+            mask: true, //显示透明蒙层，防止触摸穿透,
+            success: (res) => {},
+          });
+          this.setData({ "errorMsg.companyName": "请输入正确的身份证号" });
+          return false;
+        }
       case "company":
         if (
           app.util.isEmpty(this.data.selectedCompany.id) ||
           app.util.isEmpty(this.data.selectedCompany.companyName)
         ) {
+          wx.showToast({
+            title: "请选择入驻公司", //提示的内容,
+            icon: "none", //图标,
+            duration: 2000, //延迟时间,
+            mask: true, //显示透明蒙层，防止触摸穿透,
+            success: (res) => {},
+          });
           this.setData({ "errorMsg.companyName": "请选择入驻公司" });
           return false;
         } else {
@@ -188,9 +209,23 @@ Page({
         break;
       case "realName":
         if (app.util.isEmpty(this.data.realName)) {
+          wx.showToast({
+            title: "请输入姓名", //提示的内容,
+            icon: "none", //图标,
+            duration: 2000, //延迟时间,
+            mask: true, //显示透明蒙层，防止触摸穿透,
+            success: (res) => {},
+          });
           this.setData({ "errorMsg.realName": "请输入姓名" });
           return false;
         } else if (this.data.realName.length < 2) {
+          wx.showToast({
+            title: "姓名长度最少为两位", //提示的内容,
+            icon: "none", //图标,
+            duration: 2000, //延迟时间,
+            mask: true, //显示透明蒙层，防止触摸穿透,
+            success: (res) => {},
+          });
           this.setData({ "errorMsg.realName": "姓名长度最少为两位" });
           return false;
         } else {
@@ -200,6 +235,13 @@ Page({
         break;
       case "faceImg":
         if (app.util.isEmpty(this.data.faceImgHash)) {
+          wx.showToast({
+            title: "请选择人脸识别照片", //提示的内容,
+            icon: "none", //图标,
+            duration: 2000, //延迟时间,
+            mask: true, //显示透明蒙层，防止触摸穿透,
+            success: (res) => {},
+          });
           this.setData({ "errorMsg.faceImgHash": "请选择人脸识别照片" });
           return false;
         } else {

@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:34:54
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 15:31:06
+ * @LastEditTime: 2020-08-14 15:51:01
  * @Description:
  */
 //index.js
@@ -95,7 +95,8 @@ Page({
   onShareAppMessage(obj) {
     return {
       path: "/pages/index/index",
-      title: "万泊智慧通行",
+      title: "智慧改变生活",
+      imageUrl: "https://static.techmini.cn/shareImg0814155049.jpeg",
     };
   },
 });

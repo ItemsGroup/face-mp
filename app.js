@@ -2,10 +2,11 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:05:23
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 10:00:30
+ * @LastEditTime: 2020-08-14 16:46:01
  * @Description:
  */
 import request from "./utils/request";
+const util = require("./utils/util.js");
 
 //this.js
 App({
@@ -42,30 +43,7 @@ App({
     locatCompanyDetail:
       "/device/c/locate-company-employee-apply/getLocateCompanyDetail",
   },
-  util: {
-    isEmpty: (val) =>
-      val == null || val == undefined || !(Object.keys(val) || val).length,
-    objectToQueryString: (queryParameters) => {
-      return queryParameters
-        ? Object.entries(queryParameters).reduce(
-            (queryString, [key, val], index) => {
-              const symbol = queryString.length === 0 ? "?" : "&";
-              queryString +=
-                typeof val === "string" ? `${symbol}${key}=${val}` : "";
-              return queryString;
-            },
-            ""
-          )
-        : "";
-    },
-    getURLParameters: (url) =>
-      (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
-        (a, v) => (
-          (a[v.slice(0, v.indexOf("="))] = v.slice(v.indexOf("=") + 1)), a
-        ),
-        {}
-      ),
-  },
+  util: util,
   getDefaultCom() {
     const coms = this.globalData.myCompanys;
     let defaultCom = coms.find((item) => {
