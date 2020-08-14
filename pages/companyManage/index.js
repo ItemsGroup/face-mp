@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-10 11:17:45
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 10:06:52
+ * @LastEditTime: 2020-08-14 11:24:28
  * @Description:
  */
 //index.js
@@ -18,7 +18,7 @@ Page({
   modifyCompany(e) {
     let comId = e.target.dataset.id;
     let com = this.data.myCompanys.find((item) => {
-      return (item.id = comId);
+      return item.id === comId;
     });
     wx.navigateTo({
       url:
