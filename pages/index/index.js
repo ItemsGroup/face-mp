@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:34:54
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-12 16:46:30
+ * @LastEditTime: 2020-08-14 11:56:18
  * @Description:
  */
 //index.js
@@ -71,6 +71,7 @@ Page({
           currentCompany: app.getDefaultCom(),
         });
         this.choseCom(this.data.currentCompany);
+        wx.stopPullDownRefresh();
       }
     });
   },

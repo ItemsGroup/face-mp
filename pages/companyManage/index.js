@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-10 11:17:45
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 11:24:28
+ * @LastEditTime: 2020-08-14 11:56:44
  * @Description:
  */
 //index.js
@@ -45,6 +45,7 @@ Page({
       this.setData({
         myCompanys: app.globalData.myCompanys,
       });
+      wx.stopPullDownRefresh();
     });
   },
   onPullDownRefresh: function () {
