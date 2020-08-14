@@ -6,7 +6,7 @@
     <van-field required value="{{ realName }}" label="姓名" placeholder="请输入真实姓名" error-message="{{errorMsg.realName}}" data-name="realName" bind:blur="validOnBlur" bind:change="onInputChange" />
     <van-field required value="{{ idNumber }}" label="身份证号" placeholder="请输入身份证号" error-message="{{errorMsg.idNumber}}" data-name="idNumber" bind:blur="validOnBlur" bind:change="onInputChange" />
     <van-cell required center title="人脸照片">
-      <van-uploader file-list="{{ faceImgs }}" max-count='1' bind:after-read='afterImgRead' deletable="{{ true }}" bind:delete="deleteFaceImg" />
+      <van-uploader file-list="{{ faceImgs }}" max-count="{{1}}" bind:after-read='afterImgRead' deletable="{{ true }}" bind:delete="deleteFaceImg" />
       <view class="van-field__error-message" style="color:#ee0a24;text-align: left;font-size:12px;">
         {{errorMsg.faceImg}}
       </view>

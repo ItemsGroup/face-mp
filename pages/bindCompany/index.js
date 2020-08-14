@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-13 10:19:49
+ * @LastEditTime: 2020-08-14 09:26:53
  * @Description:
  */
 //index.js
@@ -82,6 +82,16 @@ Page({
   },
   afterImgRead(e) {
     const file = e.detail.file;
+    if (file.size > 1048576) {
+      wx.showToast({
+        title: "图片不能大于1M", //提示的内容,
+        icon: "none", //图标,
+        duration: 3000, //延迟时间,
+        mask: false, //显示透明蒙层，防止触摸穿透,
+        success: (res) => {},
+      });
+      return;
+    }
     const that = this;
     request
       .get(app.api.qnUploadToken, {
