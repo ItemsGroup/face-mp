@@ -5,7 +5,7 @@
     <view class="companyCardBox">
       <van-row gutter="5">
         <van-col span="6">
-          <image src="{{item.faceImgUrl}}" class="avatar" />
+          <image src="{{item.faceImgUrl}}" class="avatar" mode="aspectFill" />
         </van-col>
         <van-col span="18" style="padding-top: 10rpx;">
           <van-row>

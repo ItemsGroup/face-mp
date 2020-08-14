@@ -1,7 +1,7 @@
 <view class="container">
   <view class="userInfoCard">
     <view class="userInfoCardInner">
-      <image class="userAvatar" src="{{com.faceImgUrl}}" />
+      <image class="userAvatar" src="{{com.faceImgUrl}}" mode="aspectFill" />
       <view class="userInfoBox">
         <view class="userNameBox">
           <view class="userNameText">{{com.name}}</view>
