@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 09:26:53
+ * @LastEditTime: 2020-08-14 11:18:52
  * @Description:
  */
 //index.js
@@ -32,6 +32,7 @@ Page({
     modifyData: {},
     employeeId: "",
     authBackParams: "",
+    submiting: false,
   },
   onInputChange(e) {
     const name = e.target.dataset.name;
@@ -46,7 +47,22 @@ Page({
     });
   },
   bindCompany() {
+    debugger;
     if (this.validAll()) {
+      if (this.data.submiting) {
+        wx.showToast({
+          title: "提交中,请稍后", //提示的内容,
+          icon: "none", //图标,
+          duration: 2000, //延迟时间,
+          mask: true, //显示透明蒙层，防止触摸穿透,
+          success: (res) => {},
+        });
+        return;
+      } else {
+        this.setData({
+          submiting: true,
+        });
+      }
       const subData = {
         faceImgHash: this.data.faceImgHash,
         idCardNumber: this.data.idNumber,
@@ -60,6 +76,9 @@ Page({
           : app.api.updateMyComInfo;
       request.post(requestUrl, subData).then((res) => {
         app.listMyCompanys().then((res) => {
+          this.setData({
+            submiting: false,
+          });
           const pages = getCurrentPages();
           if (
             pages.length > 1 &&
@@ -70,6 +89,14 @@ Page({
             });
           else wx.switchTab({ url: "/pages/index/index" });
         });
+      });
+    } else {
+      wx.showToast({
+        title: "请填写正确信息", //提示的内容,
+        icon: "none", //图标,
+        duration: 2000, //延迟时间,
+        mask: true, //显示透明蒙层，防止触摸穿透,
+        success: (res) => {},
       });
     }
   },

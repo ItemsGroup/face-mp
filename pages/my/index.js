@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:51:19
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-12 16:41:49
+ * @LastEditTime: 2020-08-14 10:50:14
  * @Description:
  */
 //index.js
@@ -12,6 +12,7 @@ const app = getApp();
 Page({
   data: {
     com: {},
+    phone: "",
   },
   jump2MyCompany() {
     wx.navigateTo({ url: "/pages/companyManage/index" });
@@ -21,7 +22,7 @@ Page({
   },
   parsePhone(phone) {
     if (app.util.isEmpty(phone)) return "";
-    return phone.substring(0, 3) + "****" + phone.substring(6);
+    return phone.substring(0, 3) + "****" + phone.substring(7);
   },
   onLoad: function () {
     this.setData({
