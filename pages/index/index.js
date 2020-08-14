@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:34:54
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 11:56:18
+ * @LastEditTime: 2020-08-14 15:31:06
  * @Description:
  */
 //index.js
@@ -91,5 +91,11 @@ Page({
       });
       this.choseCom(this.data.currentCompany);
     }
+  },
+  onShareAppMessage(obj) {
+    return {
+      path: "/pages/index/index",
+      title: "万泊智慧通行",
+    };
   },
 });
