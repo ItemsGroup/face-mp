@@ -14,7 +14,10 @@
             </van-col>
             <val-col span="5" offset="2">
               <view class="companyNameBox" style="text-align: right;">
-                {{item.applyStatus==='applying'?'待审核':item.claimStatus==='claimWaiting'?'待认领':''}}
+                {{item.applyStatus==='applying'?'待审核':
+                item.applyStatus==='reject'?'申请拒绝':
+                item.claimStatus==='claimWaiting'?'待认领':
+                item.claimStatus==='claimReject'?'认领拒绝':''}}
               </view>
             </val-col>
           </van-row>

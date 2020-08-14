@@ -12,7 +12,10 @@
       </view>
     </van-cell>
   </van-cell-group>
-  <van-button type="info" bind:click="bindCompany" disabled="{{submiting}}" size="large" style="width:80%;margin-top:200rpx;">
+  <van-button wx:if="{{!showClaim}}" type="info" bind:click="bindCompany" disabled="{{submiting}}" size="large" style="width:80%;margin-top:200rpx;">
+    提交
+  </van-button>
+  <van-button wx:else type="info" bind:click="bindCompany" disabled="{{submiting}}" size="large" style="width:80%;margin-top:200rpx;">
     提交
   </van-button>
 </view>

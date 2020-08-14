@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 11:23:14
+ * @LastEditTime: 2020-08-14 15:08:12
  * @Description:
  */
 //index.js
@@ -33,6 +33,7 @@ Page({
     employeeId: "",
     authBackParams: "",
     submiting: false,
+    showClaim: false,
   },
   onInputChange(e) {
     const name = e.target.dataset.name;
@@ -239,7 +240,6 @@ Page({
       }
       if (!app.util.isEmpty(options.comData)) {
         let data = JSON.parse(options.comData);
-        console.log(data);
         this.setData({
           modifyData: data,
           employeeId: data.employeeId,
@@ -257,6 +257,7 @@ Page({
               deletable: true,
             },
           ],
+          showClaim: data.claimStatus === "claimReject",
         });
       }
     } else {
