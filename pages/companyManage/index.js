@@ -1,3 +1,10 @@
+/*
+ * @Author: 蜈蚣钻屁眼
+ * @Date: 2020-08-10 11:17:45
+ * @LastEditors: 蜈蚣钻屁眼
+ * @LastEditTime: 2020-08-14 10:06:52
+ * @Description:
+ */
 //index.js
 //获取应用实例
 import request from "../../utils/request";
@@ -41,11 +48,7 @@ Page({
     });
   },
   onPullDownRefresh: function () {
-    app.listMyCompanys().then((res) => {
-      this.setData({
-        myCompanys: app.globalData.myCompanys,
-      });
-    });
+    this.refreshMyCompanys();
   },
   onLoad: function (options) {
     wx.stopPullDownRefresh();

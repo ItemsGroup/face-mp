@@ -62,7 +62,7 @@ Page({
       }, 290000);
     });
   },
-  onLoad: function () {
+  init() {
     app.login().then((res) => {
       const myComs = app.globalData.myCompanys;
       if (!app.util.isEmpty(myComs)) {
@@ -73,6 +73,13 @@ Page({
         this.choseCom(this.data.currentCompany);
       }
     });
+  },
+  onPullDownRefresh: function () {
+    this.init();
+  },
+  onLoad: function () {
+    wx.stopPullDownRefresh();
+    this.init();
   },
   onShow() {
     const myComs = app.globalData.myCompanys;
