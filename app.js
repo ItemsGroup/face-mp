@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:05:23
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-13 10:22:25
+ * @LastEditTime: 2020-08-14 10:00:30
  * @Description:
  */
 import request from "./utils/request";
@@ -71,8 +71,11 @@ App({
     let defaultCom = coms.find((item) => {
       return item.isDefault === 1;
     });
-    if (this.util.isEmpty(defaultCom)) defaultCom = coms[0];
-    return defaultCom;
+    if (this.util.isEmpty(defaultCom))
+      defaultCom = coms.find((item) => {
+        return item.occupationStatus === "on";
+      });
+    return this.util.isEmpty(defaultCom) ? coms[0] : defaultCom;
   },
   listMyCompanys(authBackParams) {
     return new Promise((resolve, reject) => {

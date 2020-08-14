@@ -5,8 +5,7 @@
     "pages/authUserInfo/index",
     "pages/bindCompany/index",
     "pages/searchCompany/index",
-    "pages/companyManage/index",
-    "pages/myInfoForm/index"
+    "pages/companyManage/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
