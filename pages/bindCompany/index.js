@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-15 10:23:56
+ * @LastEditTime: 2020-08-15 14:40:47
  * @Description:
  */
 //index.js
@@ -109,6 +109,7 @@ Page({
   },
   afterImgRead(e) {
     const file = e.detail.file;
+    console.error(file.size / 1000);
     if (file.size > 1048576) {
       wx.showToast({
         title: "图片不能大于1M", //提示的内容,

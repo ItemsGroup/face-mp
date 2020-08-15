@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:05:23
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-15 11:15:53
+ * @LastEditTime: 2020-08-15 14:29:00
  * @Description:
  */
 import request from "./utils/request";
@@ -18,8 +18,8 @@ App({
     openId: "",
     userInfo: null,
     // host: "http://192.168.31.23:80",
-    host: "http://192.168.31.14:8800",
-    // host: "https://api.face.techmini.cn",
+    // host: "http://192.168.31.14:8800",
+    host: "https://api.face.techmini.cn",
     // host: "http://localhost:80",
     clientId: "wechat_mp",
     clientSecret: "wechat_mp_secret",
