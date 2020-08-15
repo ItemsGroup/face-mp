@@ -34,7 +34,7 @@ Page({
     this.setData({
       faceImgHash: "",
       faceImgs: [],
-      "errorMsg.faceImg": "人脸图片不能为空",
+      "errorMsg.faceImg": "头像不能为空",
     });
   },
   afterImgRead(e) {
@@ -105,7 +105,7 @@ Page({
         break;
       case "faceImg":
         if (app.util.isEmpty(this.data.faceImgHash)) {
-          this.setData({ "errorMsg.faceImgHash": "请选择人脸识别照片" });
+          this.setData({ "errorMsg.faceImgHash": "请选择头像" });
           return false;
         } else {
           this.setData({ "errorMsg.faceImgHash": "" });

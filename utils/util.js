@@ -1,3 +1,10 @@
+/*
+ * @Author: 蜈蚣钻屁眼
+ * @Date: 2020-08-04 11:05:23
+ * @LastEditors: 蜈蚣钻屁眼
+ * @LastEditTime: 2020-08-15 11:31:07
+ * @Description:
+ */
 module.exports = {
   formatNumber: (n) => {
     n = n.toString();
@@ -18,7 +25,7 @@ module.exports = {
     );
   },
   isPhone: (value) => {
-    return;
+    // return true;
     if (isNaN(value)) {
       return false;
     }
@@ -28,7 +35,7 @@ module.exports = {
     }
   },
   isIDNumber: (rule, value, callBack) => {
-    return;
+    // return true;
     if (isNaN(value.replace("x", "").replace("X", ""))) {
       return false;
     }

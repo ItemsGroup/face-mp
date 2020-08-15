@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 16:55:57
+ * @LastEditTime: 2020-08-15 10:23:56
  * @Description:
  */
 //index.js
@@ -48,7 +48,6 @@ Page({
     });
   },
   bindCompany() {
-    debugger;
     if (this.validAll()) {
       if (this.data.submiting) {
         wx.showToast({
@@ -92,20 +91,20 @@ Page({
         });
       });
     } else {
-      wx.showToast({
-        title: "请填写正确信息", //提示的内容,
-        icon: "none", //图标,
-        duration: 2000, //延迟时间,
-        mask: true, //显示透明蒙层，防止触摸穿透,
-        success: (res) => {},
-      });
+      // wx.showToast({
+      //   title: "请填写正确信息", //提示的内容,
+      //   icon: "none", //图标,
+      //   duration: 2000, //延迟时间,
+      //   mask: true, //显示透明蒙层，防止触摸穿透,
+      //   success: (res) => {},
+      // });
     }
   },
   deleteFaceImg(e) {
     this.setData({
       faceImgHash: "",
       faceImgs: [],
-      "errorMsg.faceImg": "人脸图片不能为空",
+      "errorMsg.faceImg": "头像不能为空",
     });
   },
   afterImgRead(e) {
@@ -236,13 +235,13 @@ Page({
       case "faceImg":
         if (app.util.isEmpty(this.data.faceImgHash)) {
           wx.showToast({
-            title: "请选择人脸识别照片", //提示的内容,
+            title: "请选择头像", //提示的内容,
             icon: "none", //图标,
             duration: 2000, //延迟时间,
             mask: true, //显示透明蒙层，防止触摸穿透,
             success: (res) => {},
           });
-          this.setData({ "errorMsg.faceImgHash": "请选择人脸识别照片" });
+          this.setData({ "errorMsg.faceImgHash": "请选择头像" });
           return false;
         } else {
           this.setData({ "errorMsg.faceImgHash": "" });

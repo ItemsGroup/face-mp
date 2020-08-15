@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:05:23
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 16:46:01
+ * @LastEditTime: 2020-08-15 11:15:53
  * @Description:
  */
 import request from "./utils/request";
@@ -19,10 +19,11 @@ App({
     userInfo: null,
     // host: "http://192.168.31.23:80",
     host: "http://192.168.31.14:8800",
+    // host: "https://api.face.techmini.cn",
     // host: "http://localhost:80",
     clientId: "wechat_mp",
     clientSecret: "wechat_mp_secret",
-    qiniuUrlPrefix: "http://qeh9ngol7.bkt.clouddn.com/",
+    qiniuUrlPrefix: "https://wb-face.techmini.cn/",
     myCompanys: [],
   },
   api: {
@@ -53,7 +54,11 @@ App({
       defaultCom = coms.find((item) => {
         return item.occupationStatus === "on";
       });
-    return this.util.isEmpty(defaultCom) ? coms[0] : defaultCom;
+    return this.util.isEmpty(defaultCom)
+      ? this.util.isEmpty(coms[0])
+        ? {}
+        : coms[0]
+      : defaultCom;
   },
   listMyCompanys(authBackParams) {
     return new Promise((resolve, reject) => {
@@ -63,8 +68,8 @@ App({
           this.util.isEmpty(res.data) &&
           pages[pages.length - 1].route !== "pages/bindCompany/index"
         ) {
-          if (this.util.isEmpty(authBackParams))
-            wx.navigateTo({ url: "/pages/bindCompany/index?status=add" });
+          if (this.util.isEmpty(authBackParams)) resolve(res);
+          // wx.navigateTo({ url: "/pages/bindCompany/index?status=add" });
           else
             wx.navigateTo({
               url:
@@ -73,7 +78,6 @@ App({
                   ? authBackParams
                   : JSON.stringify(authBackParams)),
             });
-          // wx.navigateTo({ url: "/pages/searchCompany/index" });
         } else {
           this.globalData.myCompanys = res.data.map((item) => {
             item.value = item.id;
@@ -117,6 +121,7 @@ App({
                     },
                   });
                 } else {
+                  console.log(111);
                   this.listMyCompanys(authBackParams).then((companysRes) => {
                     resolve({
                       login: res,

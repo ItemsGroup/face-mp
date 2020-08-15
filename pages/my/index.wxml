@@ -1,16 +1,14 @@
 <view class="container">
   <view class="userInfoCard">
     <view class="userInfoCardInner">
-      <image class="userAvatar" src="{{com.faceImgUrl}}" mode="aspectFill" />
+      <image class="userAvatar" src="{{com.faceImgUrl?com.faceImgUrl:'https://static.techmini.cn/uorOl80721192354.png'}}" mode="aspectFill" />
       <view class="userInfoBox">
         <view class="userNameBox">
           <view class="userNameText">{{com.name}}</view>
           <!-- <view wx:if="{{com.occupationStatus==='on'||com.occupationStatus==='off'}}" class="userTag">
             {{(com.occupationStatus==='on')?'在职':'离职'}}
           </view> -->
-          <view class="userTag">
-            {{(com.occupationStatus==='on')?'在职':com.applyStatus==='applying'?'审核中':'离职'}}
-          </view>
+          <view class="userTag" wx:if="{{isOn}}">{{isOnText}}</view>
         </view>
         <view class="companyNameText">{{com.companyName}}</view>
       </view>

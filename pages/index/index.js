@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:34:54
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 15:51:01
+ * @LastEditTime: 2020-08-15 09:59:05
  * @Description:
  */
 //index.js
@@ -14,16 +14,7 @@ import QRCode from "../../utils/weapp-qrcode.js";
 Page({
   data: {
     showQrCode: true,
-    myCompanys: [
-      {
-        text: "宇宙洪荒唯我独尊",
-        value: 1,
-      },
-      {
-        text: "公司2",
-        value: 2,
-      },
-    ],
+    myCompanys: [],
     currentCompany: {},
   },
   onCloseAuthMenu() {},
@@ -32,6 +23,9 @@ Page({
   },
   onTapCompany(e) {
     wx.navigateTo({ url: "/pages/companyManage/index?status=chose" });
+  },
+  jump2AddCom(e) {
+    wx.navigateTo({ url: "/pages/bindCompany/index?status=add" });
   },
   onChangeCompany: function ({ detail }) {
     this.choseCom(detail);

@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-05 15:41:56
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-12 18:58:03
+ * @LastEditTime: 2020-08-15 09:53:09
  * @Description:
  */
 //index.js
@@ -50,10 +50,9 @@ Page({
           sourceScope: "mini",
         })
         .then((res) => {
-          console.log("getPhone:", this.data.authBackParams);
           app
             .login(this.data.authBackParams)
-            .then((res) => {
+            .then((loginRes) => {
               this.setAuthBackParams();
               wx.navigateBack({
                 delta: 1, //返回的页面数，如果 delta 大于现有页面数，则返回到首页,

@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:51:19
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 10:50:14
+ * @LastEditTime: 2020-08-15 11:06:48
  * @Description:
  */
 //index.js
@@ -13,6 +13,8 @@ Page({
   data: {
     com: {},
     phone: "",
+    isOnText: "",
+    isOn: false,
   },
   jump2MyCompany() {
     wx.navigateTo({ url: "/pages/companyManage/index" });
@@ -25,9 +27,20 @@ Page({
     return phone.substring(0, 3) + "****" + phone.substring(7);
   },
   onLoad: function () {
+    const com = app.getDefaultCom();
+    const isOnText = app.util.isEmpty(com)
+      ? ""
+      : com.occupationStatus === "on"
+      ? "在职"
+      : com.applyStatus === "applying"
+      ? "审核中"
+      : "离职";
+    const isOn = app.util.isEmpty(isOnText);
     this.setData({
-      com: app.getDefaultCom(),
+      com: com,
       phone: this.parsePhone(app.globalData.userInfo.phone),
+      isOnText: isOnText,
+      isOn: isOn,
     });
   },
 });

@@ -5,12 +5,17 @@
     <van-icon name="arrow-down" size="35rpx" />
   </view>
   <view class="nameBox">帅哥,你好</view> -->
-  <view class="companyTitle" bind:tap="onTapCompany">{{currentCompany.name}} 你好</view>
+  <view class="companyTitle" bind:tap="onTapCompany">
+    {{currentCompany.name?currentCompany.name+' 你好':''}}
+  </view>
   <view class="canvas-code-box" style="background-image:url(https://static.techmini.cn/qrCodeBg0813102544.png);background-repeat:no-repeat;background-size:100%;">
     <canvas wx:if="{{showQrCode}}" class="canvas-code" canvas-id="companyInQrCode"></canvas>
     <view wx:else class="noComTip">管理员审核中,请耐心等待</view>
   </view>
   <!-- <view class="groupTitle">舜泰广场</view> -->
   <view class="title1">门禁二维码</view>
+  <van-button wx:if="{{myCompanys.length===0}}" type="primary" bind:click="jump2AddCom" size="normal" style="margin-top: 30rpx;">
+    绑定公司-扫码开门
+  </van-button>
   <image src="../../static/img/banner1.png" class="indexBottomBanner" />
 </view>
