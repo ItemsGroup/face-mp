@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-15 14:40:47
+ * @LastEditTime: 2020-08-17 09:42:08
  * @Description:
  */
 //index.js
@@ -43,9 +43,12 @@ Page({
     });
   },
   onClickBack() {
-    wx.navigateBack({
-      delta: 1, //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
-    });
+    const pages = getCurrentPages();
+    if (pages.length > 1)
+      wx.navigateBack({
+        delta: 1, //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
+      });
+    else wx.navigateTo({ url: "/pages/index/index" });
   },
   bindCompany() {
     if (this.validAll()) {
@@ -234,7 +237,8 @@ Page({
         }
         break;
       case "faceImg":
-        if (app.util.isEmpty(this.data.faceImgHash)) {
+        if (!app.util.isEmpty(this.data.faceImgHash)) {
+          // if (app.util.isEmpty(this.data.faceImgHash)) {
           wx.showToast({
             title: "请选择头像", //提示的内容,
             icon: "none", //图标,

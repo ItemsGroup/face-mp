@@ -27,7 +27,8 @@
     "van-row": "static/vant/row/index",
     "van-col": "static/vant/col/index",
     "van-notice-bar": "static/vant/notice-bar/index",
-    "van-nav-bar": "static/vant/nav-bar/index"
+    "van-nav-bar": "static/vant/nav-bar/index",
+    "van-empty": "static/vant/empty/index"
   },
   "tabBar": {
     "color": "#CCCCCC",
