@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:05:23
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-17 09:11:13
+ * @LastEditTime: 2020-08-17 17:05:11
  * @Description:
  */
 import request from "./utils/request";
@@ -19,12 +19,13 @@ App({
     userInfo: null,
     // host: "http://192.168.31.23:80",
     // host: "http://192.168.31.14:8800",
-    // host: "https://api.face.techmini.cn",
-    host: "http://localhost:8611",
+    host: "https://api.face.techmini.cn",
+    // host: "http://localhost:8611",
     clientId: "wechat_mp",
     clientSecret: "wechat_mp_secret",
     qiniuUrlPrefix: "https://wb-face.techmini.cn/",
     myCompanys: [],
+    showFace: "0",
   },
   api: {
     login: "/blade-auth/oauth/weChatToken",
@@ -105,23 +106,24 @@ App({
                 this.globalData.refreshToken = res.refresh_token;
                 this.globalData.locateCompanyId = res.locateCompanyId;
                 this.globalData.openId = res.openId;
+                this.globalData.showFace =
+                  res.showFace === 1 || res.showFace === "1";
                 if (this.util.isEmpty(this.globalData.userInfo.phone)) {
-                  const url =
-                    "/pages/authUserInfo/index?authBackParams=" +
-                    (this.util.isEmpty(authBackParams)
-                      ? ""
-                      : typeof authBackParams === "string"
-                      ? authBackParams
-                      : JSON.stringify(authBackParams));
-                  wx.navigateTo({
-                    url: url,
-                    success: function (res) {},
-                    fail: function (err) {
-                      console.error(err);
-                    },
-                  });
+                  // const url =
+                  //   "/pages/authUserInfo/index?authBackParams=" +
+                  //   (this.util.isEmpty(authBackParams)
+                  //     ? ""
+                  //     : typeof authBackParams === "string"
+                  //     ? authBackParams
+                  //     : JSON.stringify(authBackParams));
+                  // wx.navigateTo({
+                  //   url: url,
+                  //   success: function (res) {},
+                  //   fail: function (err) {
+                  //     console.error(err);
+                  //   },
+                  // });
                 } else {
-                  console.log(111);
                   this.listMyCompanys(authBackParams).then((companysRes) => {
                     resolve({
                       login: res,

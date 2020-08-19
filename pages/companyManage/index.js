@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-10 11:17:45
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-14 12:27:35
+ * @LastEditTime: 2020-08-18 14:30:23
  * @Description:
  */
 //index.js
@@ -54,8 +54,27 @@ Page({
   onShow: function () {
     this.refreshMyCompanys();
   },
+  checkPhone(authBackParams) {
+    if (app.util.isEmpty(app.globalData.userInfo.phone)) {
+      const url =
+        "/pages/authUserInfo/index?backTo=/pages/bindCompany/index&authBackParams=" +
+        (app.util.isEmpty(authBackParams)
+          ? ""
+          : typeof authBackParams === "string"
+          ? authBackParams
+          : JSON.stringify(authBackParams));
+      wx.navigateTo({
+        url: url,
+        success: function (res) {},
+        fail: function (err) {
+          console.error(err);
+        },
+      });
+    }
+  },
   onLoad: function (options) {
     wx.stopPullDownRefresh();
+    this.checkPhone();
     if (!app.util.isEmpty(options.status)) {
       this.setData({
         status: options.status,

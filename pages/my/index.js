@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:51:19
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-15 11:06:48
+ * @LastEditTime: 2020-08-17 09:59:02
  * @Description:
  */
 //index.js
@@ -14,7 +14,6 @@ Page({
     com: {},
     phone: "",
     isOnText: "",
-    isOn: false,
   },
   jump2MyCompany() {
     wx.navigateTo({ url: "/pages/companyManage/index" });
@@ -35,12 +34,10 @@ Page({
       : com.applyStatus === "applying"
       ? "审核中"
       : "离职";
-    const isOn = app.util.isEmpty(isOnText);
     this.setData({
       com: com,
       phone: this.parsePhone(app.globalData.userInfo.phone),
       isOnText: isOnText,
-      isOn: isOn,
     });
   },
 });

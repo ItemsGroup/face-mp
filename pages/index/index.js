@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 11:34:54
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-15 09:59:05
+ * @LastEditTime: 2020-08-18 14:50:49
  * @Description:
  */
 //index.js
@@ -58,6 +58,7 @@ Page({
   },
   init() {
     app.login().then((res) => {
+      wx.stopPullDownRefresh();
       const myComs = app.globalData.myCompanys;
       if (!app.util.isEmpty(myComs)) {
         this.setData({
@@ -65,7 +66,6 @@ Page({
           currentCompany: app.getDefaultCom(),
         });
         this.choseCom(this.data.currentCompany);
-        wx.stopPullDownRefresh();
       }
     });
   },

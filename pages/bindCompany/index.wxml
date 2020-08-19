@@ -5,12 +5,12 @@
     <van-field required value="{{ selectedCompany.companyName }}" disabled label="公司名称" placeholder="选择公司名称" bind:click-icon="jump2SearchCompanyPage" bind:focus="jump2SearchCompanyPage" bind:tap="jump2SearchCompanyPage" data-name="company" error-message="{{errorMsg.company}}" right-icon="search" />
     <van-field required value="{{ realName }}" label="姓名" placeholder="请输入真实姓名" error-message="{{errorMsg.realName}}" data-name="realName" bind:blur="validOnBlur" bind:change="onInputChange" />
     <van-field value="{{ idNumber }}" label="身份证号" placeholder="请输入身份证号" error-message="{{errorMsg.idNumber}}" data-name="idNumber" bind:blur="validOnBlur" bind:change="onInputChange" />
-    <!-- <van-cell required center title="头像">
+    <van-cell wx:if="{{showFace}}" required center title="头像">
       <van-uploader sizeType="{{['compressed']}}" file-list="{{ faceImgs }}" image-fit="aspectFill" max-count="{{1}}" bind:after-read='afterImgRead' deletable="{{ true }}" bind:delete="deleteFaceImg" />
       <view class="van-field__error-message" style="color:#ee0a24;text-align: left;font-size:12px;">
         {{errorMsg.faceImg}}
       </view>
-    </van-cell> -->
+    </van-cell>
   </van-cell-group>
   <van-button wx:if="{{!showClaim}}" type="info" bind:click="bindCompany" disabled="{{submiting}}" size="large" style="width:80%;margin-top:200rpx;">
     提交

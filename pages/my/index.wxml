@@ -8,7 +8,9 @@
           <!-- <view wx:if="{{com.occupationStatus==='on'||com.occupationStatus==='off'}}" class="userTag">
             {{(com.occupationStatus==='on')?'在职':'离职'}}
           </view> -->
-          <view class="userTag" wx:if="{{isOn}}">{{isOnText}}</view>
+          <view class="userTag" wx:if="{{isOnText!==null && isOnText!==undefind && isOnText.length>0}}">
+            {{isOnText}}
+          </view>
         </view>
         <view class="companyNameText">{{com.companyName}}</view>
       </view>

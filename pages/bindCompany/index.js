@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-17 09:42:08
+ * @LastEditTime: 2020-08-18 11:47:44
  * @Description:
  */
 //index.js
@@ -34,6 +34,7 @@ Page({
     authBackParams: "",
     submiting: false,
     showClaim: false,
+    showFace: false,
   },
   onInputChange(e) {
     const name = e.target.dataset.name;
@@ -67,7 +68,10 @@ Page({
         });
       }
       const subData = {
-        faceImgHash: this.data.faceImgHash,
+        faceImgHash: this.data.showFace
+          ? this.data.faceImgHash
+          : "uorOl80721192354.png",
+        // faceImgHash: this.data.faceImgHash,
         idCardNumber: this.data.idNumber,
         locateCompanyId: this.data.selectedCompany.id,
         name: this.data.realName,
@@ -273,12 +277,32 @@ Page({
         });
       });
   },
+  checkPhone(authBackParams) {
+    if (app.util.isEmpty(app.globalData.userInfo.phone)) {
+      const url =
+        "/pages/authUserInfo/index?backTo=/pages/bindCompany/index&authBackParams=" +
+        (app.util.isEmpty(authBackParams)
+          ? ""
+          : typeof authBackParams === "string"
+          ? authBackParams
+          : JSON.stringify(authBackParams));
+      wx.navigateTo({
+        url: url,
+        success: function (res) {},
+        fail: function (err) {
+          console.error(err);
+        },
+      });
+    }
+  },
   onLoad: function (options) {
+    this.setData({ showFace: app.globalData.showFace });
     if (
       app.util.isEmpty(options.q) &&
       app.util.isEmpty(this.data.authBackParams) &&
       app.util.isEmpty(options.authBackParams)
     ) {
+      this.checkPhone();
       if (!app.util.isEmpty(options.status)) {
         this.setData({
           status: options.status,
@@ -315,6 +339,7 @@ Page({
         let urlParams = app.util.getURLParameters(q);
         let locateCompanyId = urlParams.locateCompanyId;
         app.login(urlParams).then((loginRes) => {
+          this.checkPhone(urlParams);
           this.getQrCom(locateCompanyId);
         });
       } else {

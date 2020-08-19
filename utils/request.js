@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-04 16:52:55
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-12 18:11:47
+ * @LastEditTime: 2020-08-19 11:03:17
  * @Description:
  */
 var app = getApp();
@@ -22,6 +22,7 @@ const request = (url, options, tApp) => {
       data:
         options.method === "GET" ? options.data : JSON.stringify(options.data),
       header: {
+        version_number: "1.0.0",
         "Content-Type": "application/json; charset=UTF-8",
         Authorization:
           "Basic " +
