@@ -2,7 +2,7 @@
  * @Author: 蜈蚣钻屁眼
  * @Date: 2020-08-06 10:19:42
  * @LastEditors: 蜈蚣钻屁眼
- * @LastEditTime: 2020-08-18 11:47:44
+ * @LastEditTime: 2020-08-19 12:16:59
  * @Description:
  */
 //index.js
@@ -241,8 +241,8 @@ Page({
         }
         break;
       case "faceImg":
-        if (!app.util.isEmpty(this.data.faceImgHash)) {
-          // if (app.util.isEmpty(this.data.faceImgHash)) {
+        // if (!app.util.isEmpty(this.data.faceImgHash)) {
+        if (app.util.isEmpty(this.data.faceImgHash)) {
           wx.showToast({
             title: "请选择头像", //提示的内容,
             icon: "none", //图标,
