@@ -34,7 +34,7 @@ Page({
     authBackParams: "",
     submiting: false,
     showClaim: false,
-    showFace: false,
+    isShowFace: false,
   },
   onInputChange(e) {
     const name = e.target.dataset.name;
@@ -68,7 +68,7 @@ Page({
         });
       }
       const subData = {
-        faceImgHash: this.data.showFace
+        faceImgHash: this.data.isShowFace
           ? this.data.faceImgHash
           : "uorOl80721192354.png",
         // faceImgHash: this.data.faceImgHash,
@@ -296,7 +296,7 @@ Page({
     }
   },
   onLoad: function (options) {
-    this.setData({ showFace: app.globalData.showFace });
+    this.setData({ isShowFace: app.globalData.isShowFace });
     if (
       app.util.isEmpty(options.q) &&
       app.util.isEmpty(this.data.authBackParams) &&

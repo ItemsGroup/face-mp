@@ -25,7 +25,7 @@ App({
     clientSecret: "wechat_mp_secret",
     qiniuUrlPrefix: "https://wb-face.techmini.cn/",
     myCompanys: [],
-    showFace: "0",
+    isShowFace: false,
   },
   api: {
     login: "/blade-auth/oauth/weChatToken",
@@ -106,8 +106,8 @@ App({
                 this.globalData.refreshToken = res.refresh_token;
                 this.globalData.locateCompanyId = res.locateCompanyId;
                 this.globalData.openId = res.openId;
-                this.globalData.showFace =
-                  res.showFace === 1 || res.showFace === "1";
+                this.globalData.isShowFace =
+                  res.isShowFace === 1 || res.isShowFace === "1";
                 if (this.util.isEmpty(this.globalData.userInfo.phone)) {
                   // const url =
                   //   "/pages/authUserInfo/index?authBackParams=" +
